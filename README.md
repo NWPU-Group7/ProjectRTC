@@ -1,2 +1,2 @@
 # VitrualTalk
-A simple andriod applicaiton for virtual online talk.
+A simple android applicaiton for virtual online talk.
