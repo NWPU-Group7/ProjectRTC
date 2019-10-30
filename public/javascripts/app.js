@@ -45,6 +45,35 @@
 		return camera;
 	}]);
 
+	// android page
+	app.controller('AndroidController', ['camera', '$location', '$http', function (camera, $location, $http) {
+		var android = this;
+		//获取href
+		function getHref() {
+			return new Promise((resolve, reject) => {
+				let path = window.location.pathname;
+				if (path.indexOf('/') != -1) {
+					let id = path.substr(1);
+					let href = `virtualtalk://demo?id=${id}`;
+					resolve(href);
+				} else {
+					reject('noID');
+				}
+
+			});
+		}
+		// TODO 添加跳转
+		android.open=()=>{
+			getHref().then(chunck=>{
+                console.log(`chunck is ${chunck}`);
+                window.location.href=chunck;
+			}).catch(err=>{
+				alert('No id found!')
+			})
+		}
+
+	}]);
+
 	app.controller('RemoteStreamsController', ['camera', '$location', '$http', function (camera, $location, $http) {
 		var rtc = this;
 		rtc.remoteStreams = [];
@@ -115,14 +144,18 @@
 		};
 	}]);
 
-	app.controller('JudgeController', ['$rootScope', '$window', function ($rootScope, $window){
+	//检验是否为安卓，isAndroid
+	//TODO 注意isAndroid的值
+	app.controller('JudgeController', ['$rootScope', '$window', function ($rootScope, $window) {
 		var judge = this;
 		var userAge = navigator.userAgent;
 		var isAndroid = userAge.indexOf('Android') > -1 || userAge.indexOf('Adr') > -1;
-		judge.isAndroid=isAndroid;
+		judge.isAndroid = isAndroid;
 		console.log(`is android :${isAndroid}`);
-		judge.isOthers=!isAndroid;
+		judge.isOthers = !isAndroid;
 	}]);
+
+
 	app.controller('LocalStreamController', ['camera', '$scope', '$window', function (camera, $scope, $window) {
 		var localStream = this;
 		localStream.name = 'Guest';
