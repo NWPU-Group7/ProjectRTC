@@ -1,30 +1,28 @@
-# ProjectRTC
+# signal server for Virtual Talk
 
-## WebRTC Live Streaming
 
-- Node.js server
-- Desktop client
-- [Android client](https://github.com/pchab/AndroidRTC)
 
-You can also check this iOS client from Digix Technology:
+ #### origin from [ProjectRTC](https://github.com/pchab/ProjectRTC)
 
-- [iOS client](https://github.com/digixtechnology/iOSRTC)
+only change the href for android to resolve error in location : )
 
-The signaling part is done with [socket.io](socket.io).
-The client is built with [angularjs](https://angularjs.org/).
-
-## Install
-
-It requires [node.js](http://nodejs.org/download/)
-
-* git clone https://github.com/pchab/ProjectRTC.git
-* cd ProjectRTC/
-* npm install
-* npm start
-
-The server will run on port 3000.
-You can test it in the (Chrome or Firefox) browser at localhost:3000.
-
-## Author
-
-- [Pierre Chabardes](mailto:pierre@chabardes.net)
+###### how to use
+__In AndriodRTC__
+- AndroidManifest.xml
+ ```xml
+ <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="virtualtalk"/>
+</intent-filter>
+```
+- RtcActivity.java
+```java
+ final Intent intent = getIntent();
+ final String action = intent.getAction();
+if (Intent.ACTION_VIEW.equals(action)) {
+    final String urlId =intent.getData().getQueryParameter("id");
+    callerId =urlId;
+}
+```
